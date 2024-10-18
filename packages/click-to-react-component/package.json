@@ -1,8 +1,8 @@
 {
   "type": "module",
-  "name": "click-to-react-component",
-  "version": "1.1.0",
-  "description": "Option+Click your React components in your browser to open the source file in VS Code",
+  "name": "click-to-react-component-next",
+  "version": "2.0.0",
+  "description": "option/alt+click React components in the browser to open source files in IDE",
   "exports": {
     "import": "./src/index.js",
     "types": "./src/types.d.ts"
@@ -12,28 +12,28 @@
     "src"
   ],
   "scripts": {
-    "build": "echo \"Fuck build tools\"",
     "dev": "pnpm run build",
-    "lint": "tsc -p ./jsconfig.json",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "lint": "tsc -p ./jsconfig.json"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/ericclemmons/click-to-component.git"
+    "url": "git+https://github.com/alexgorbatchev/click-to-component-next.git"
   },
   "keywords": [
     "react",
     "vue",
     "dx",
     "vscode",
+    "webstorm",
+    "cursor",
     "devtools"
   ],
   "author": "Eric Clemmons <eric@smarterspam.com>",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/ericclemmons/click-to-component/issues"
+    "url": "https://github.com/alexgorbatchev/click-to-component-next/issues"
   },
-  "homepage": "https://github.com/ericclemmons/click-to-component#readme",
+  "homepage": "https://github.com/alexgorbatchev/click-to-component-next#readme",
   "peerDependencies": {
     "react": ">=16.8.0"
   },
