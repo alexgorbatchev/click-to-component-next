@@ -1,6 +1,6 @@
 import { cssBundleHref } from "@remix-run/css-bundle";
 import type { LinksFunction, LoaderArgs } from "@remix-run/node";
-import { ClickToComponent } from "click-to-react-component";
+import { ClickToComponent } from "click-to-react-component-next";
 import { json } from "@remix-run/node";
 import {
   Links,

@@ -1,0 +1,14 @@
+{
+  "$schema": "https://json.schemastore.org/tsconfig",
+  "compilerOptions": {
+    "checkJs": true,
+    // https://github.com/microsoft/TypeScript/issues/23219#issuecomment-773555768
+    "maxNodeModuleJsDepth": 0,
+    "module": "ESNext",
+    "moduleResolution": "node",
+    "noEmit": true,
+    "jsx": "react-jsx",
+    "lib": ["DOM", "ES2020"],
+    "noImplicitThis": true
+  }
+}

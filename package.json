@@ -1,17 +1,11 @@
 {
   "private": true,
   "scripts": {
-    "build": "turbo run build --filter=click-to-*-component",
-    "env": "env",
-    "dev": "turbo run dev --parallel",
-    "lint": "turbo run lint",
-    "prerelease": "turbo run build",
     "release": "changeset publish"
   },
   "devDependencies": {
     "@changesets/cli": "^2.23.0",
-    "eslint": "8.13.0",
-    "turbo": "^1.2.16"
+    "eslint": "8.13.0"
   },
-  "packageManager": "pnpm@6.32.3"
+  "packageManager": "pnpm@9.7.0"
 }

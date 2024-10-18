@@ -1,4 +1,4 @@
-import { ClickToComponent } from 'click-to-react-component';
+import { ClickToComponent } from 'click-to-react-component-next';
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
