@@ -18,7 +18,7 @@
   [Create React App](https://create-react-app.dev/),
   & [Vite](https://github.com/vitejs/vite/tree/main/packages/plugin-react)
   that use [@babel/plugin-transform-react-jsx-source](https://github.com/babel/babel/tree/master/packages/babel-plugin-transform-react-jsx-source)
-- Supports `vscode` & `vscode-insiders`' [URL handling](https://code.visualstudio.com/docs/editor/command-line#_opening-vs-code-with-urls)
+- Supports `vscode` & `vscode-insiders` & `webstorm` & `cursor` [URL handling](https://code.visualstudio.com/docs/editor/command-line#_opening-vs-code-with-urls)
 - Automatically **tree-shaken** from `production` builds
 - Keyboard navigation in context menu (e.g. <kbd>←</kbd>, <kbd>→</kbd>, <kbd>⏎</kbd>)
 - More context & faster than using React DevTools:
@@ -142,14 +142,14 @@ module.exports = {
       ? ['@babel/plugin-transform-react-jsx-source']
       : []),
   ],
-};
+}
 ```
 
 src/theme/Root.js:
 
 ```js
-import { ClickToComponent } from 'click-to-react-component';
-import React from 'react';
+import { ClickToComponent } from 'click-to-react-component'
+import React from 'react'
 
 // Default implementation, that you can customize
 export default function Root({ children }) {
@@ -158,7 +158,7 @@ export default function Root({ children }) {
       <ClickToComponent />
       {children}
     </>
-  );
+  )
 }
 ```
 
@@ -171,10 +171,12 @@ If [developing in container](https://github.com/ericclemmons/click-to-component/
 By default, the `editor` is set to [`vscode`](https://code.visualstudio.com/).
 
 But you can choose between `webstorm` and `vscode-insider` too.
+
 ```diff
 -<ClickToComponent />
 +<ClickToComponent editor="vscode-insiders" />
 ```
+
 If you are using another editor, you can use the `getEditorUrl` prop to define your own editor.
 
 ### `getEditorUrl`
@@ -183,13 +185,12 @@ If you want to define your own editor, you can use the `getEditorUrl` prop to de
 This function will be called with the `path`, `line`, and `column` of the target file.
 
 ```tsx
-    <ClickToComponent
-        getEditorUrl={(path, line, column) => {
-           return `my-editor://open?file=${path}&line=${line}&column=${column}`
-        }}
-    />
+<ClickToComponent
+  getEditorUrl={(path, line, column) => {
+    return `my-editor://open?file=${path}&line=${line}&column=${column}`
+  }}
+/>
 ```
-
 
 ## Run Locally
 
