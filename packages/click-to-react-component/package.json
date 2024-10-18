@@ -1,7 +1,7 @@
 {
   "type": "module",
   "name": "click-to-react-component-next",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "option/alt+click React components in the browser to open source files in IDE",
   "exports": {
     "import": "./src/index.js",

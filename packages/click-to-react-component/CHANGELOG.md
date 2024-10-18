@@ -1,5 +1,11 @@
 # click-to-react-component-next
 
+## 2.0.1
+
+### Patch Changes
+
+- Fix README.md header
+
 ## 2.0.0
 
 ### Major Changes

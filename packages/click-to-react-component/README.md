@@ -1,4 +1,4 @@
-# <ClickToComponent /> Next (aka fork)
+# click-to-component-next (aka fork)
 
 [![npm](https://img.shields.io/npm/v/click-to-react-component-next)](https://www.npmjs.com/package/click-to-react-component-next)
 [![Release](https://github.com/alexgorbatchev/click-to-component-next/actions/workflows/release.yml/badge.svg)](https://github.com/alexgorbatchev/click-to-component-next/actions/workflows/release.yml)
