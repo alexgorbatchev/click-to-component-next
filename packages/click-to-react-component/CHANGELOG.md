@@ -1,4 +1,4 @@
-# click-to-react-component
+# click-to-react-component-next
 
 ## 1.1.0
 

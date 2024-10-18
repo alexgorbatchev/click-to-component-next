@@ -29,6 +29,12 @@
     "devtools"
   ],
   "author": "Eric Clemmons <eric@smarterspam.com>",
+  "maintainers": [
+    {
+      "name": "Alex Gorbatchev",
+      "email": "alex.gorbatchev@gmail.com"
+    }
+  ],
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/alexgorbatchev/click-to-component-next/issues"
