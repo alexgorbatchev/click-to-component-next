@@ -1,5 +1,19 @@
 # click-to-react-component-next
 
+## 2.0.0
+
+### Major Changes
+
+- Fork from [ericclemmons/click-to-component](https://github.com/ericclemmons/click-to-component)
+- Merge PRs from origin:
+  - [TypeScript error "Could not find a declaration file for module"](https://github.com/ericclemmons/click-to-component/pull/84)
+  - [Show outline in Firefox](https://github.com/ericclemmons/click-to-component/pull/87)
+  - [Feature: all editors support](https://github.com/ericclemmons/click-to-component/pull/82)
+  - [feat: support cursor editor](https://github.com/ericclemmons/click-to-component/pull/88)
+  - [https://github.com/ericclemmons/click-to-component/pull/80](https://github.com/ericclemmons/click-to-component/pull/80)
+- Upgrade component dependencies
+- Remove obsolete `pathModifier`
+
 ## 1.1.0
 
 ### Minor Changes
