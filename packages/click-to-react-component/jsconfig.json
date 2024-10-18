@@ -7,6 +7,8 @@
     "module": "ESNext",
     "moduleResolution": "node",
     "noEmit": true,
+    "jsx": "react-jsx",
+    "lib": ["DOM", "ES2020"],
     "noImplicitThis": true
   }
 }

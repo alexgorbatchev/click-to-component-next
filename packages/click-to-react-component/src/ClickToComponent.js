@@ -3,7 +3,7 @@
  * @typedef {import('./types').Coords} Coords
  */
 
-import { FloatingPortal } from '@floating-ui/react-dom-interactions'
+import { FloatingPortal } from '@floating-ui/react'
 import { html } from 'htm/react'
 import * as React from 'react'
 
@@ -18,12 +18,14 @@ export const State = /** @type {const} */ ({
   SELECT: 'SELECT',
 })
 
-const isJavaScriptProtocol = /^[\u0000-\u001F ]*j[\r\n\t]*a[\r\n\t]*v[\r\n\t]*a[\r\n\t]*s[\r\n\t]*c[\r\n\t]*r[\r\n\t]*i[\r\n\t]*p[\r\n\t]*t[\r\n\t]*\:/i
+const isJavaScriptProtocol =
+  // eslint-disable-next-line no-control-regex
+  /^[\u0000-\u001F ]*j[\r\n\t]*a[\r\n\t]*v[\r\n\t]*a[\r\n\t]*s[\r\n\t]*c[\r\n\t]*r[\r\n\t]*i[\r\n\t]*p[\r\n\t]*t[\r\n\t]*\:/i
 
 /**
  * @param {Props} props
  */
-export function ClickToComponent({ editor = 'vscode', pathModifier ,getEditorUrl  }) {
+export function ClickToComponent({ editor = 'vscode', getEditorUrl }) {
   const [state, setState] = React.useState(
     /** @type {State[keyof State]} */
     (State.IDLE)
@@ -43,46 +45,49 @@ export function ClickToComponent({ editor = 'vscode', pathModifier ,getEditorUrl
     ) {
       if (state === State.HOVER && target instanceof HTMLElement) {
         const source = getSourceForElement(target)
-        const { path , column ,  line} = getPathToSource(source, pathModifier)
+        const { path, column, line } = getPathToSource(source)
         const url = getUrl({
           editor,
-          path ,
-          column ,
+          path,
+          column,
           line,
-          getEditorUrl
+          getEditorUrl,
         })
 
         event.preventDefault()
         if (isJavaScriptProtocol.test(url)) {
-          console.warn(`ClickToComponent has blocked a javascript: URL as a security precaution`);
-          return;
+          console.warn(`ClickToComponent has blocked a javascript: URL as a security precaution`)
+          return
         }
         window.location.assign(url)
 
         setState(State.IDLE)
       }
     },
-    [editor, state, target]
+    [editor, state, target, getEditorUrl]
   )
 
   const onClose = React.useCallback(
     function handleClose(returnValue) {
       if (returnValue) {
         const url = getUrl({
+          path: '',
+          line: 0,
+          column: 0,
           editor,
           getEditorUrl,
           pathToSource: returnValue,
         })
         if (isJavaScriptProtocol.test(url)) {
-          console.warn(`ClickToComponent has blocked a javascript: URL as a security precaution`);
-          return;
+          console.warn(`ClickToComponent has blocked a javascript: URL as a security precaution`)
+          return
         }
         window.location.assign(url)
       }
 
       setState(State.IDLE)
     },
-    [editor]
+    [editor, getEditorUrl]
   )
 
   const onContextMenu = React.useCallback(
@@ -177,9 +182,7 @@ export function ClickToComponent({ editor = 'vscode', pathModifier ,getEditorUrl
 
   React.useEffect(
     function toggleIndicator() {
-      for (const element of Array.from(
-        document.querySelectorAll('[data-click-to-component-target]')
-      )) {
+      for (const element of Array.from(document.querySelectorAll('[data-click-to-component-target]'))) {
         if (element instanceof HTMLElement) {
           delete element.dataset.clickToComponentTarget
         }
@@ -255,11 +258,7 @@ export function ClickToComponent({ editor = 'vscode', pathModifier ,getEditorUrl
     </style>
 
     <${FloatingPortal} key="click-to-component-portal">
-      ${html`<${ContextMenu}
-        key="click-to-component-contextmenu"
-        onClose=${onClose}
-        pathModifier=${pathModifier}
-      />`}
+      ${html`<${ContextMenu} key="click-to-component-contextmenu" onClose=${onClose} />`}
     </${FloatingPortal}
   `
 }

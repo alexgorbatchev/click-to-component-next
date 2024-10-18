@@ -15,9 +15,8 @@ export function getPathToSource(source) {
   } = source
 
   return {
-    path:fileName,
-    line:lineNumber,
-    column:columnNumber
+    path: fileName,
+    line: lineNumber,
+    column: columnNumber,
   }
-
 }

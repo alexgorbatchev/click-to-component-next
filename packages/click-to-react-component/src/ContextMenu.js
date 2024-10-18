@@ -18,10 +18,10 @@ import {
   useInteractions,
   useListNavigation,
   useRole,
-} from '@floating-ui/react-dom-interactions'
+} from '@floating-ui/react'
 import { html } from 'htm/react'
 import * as React from 'react'
-import mergeRefs from 'react-merge-refs'
+import { mergeRefs } from 'react-merge-refs'
 
 import { getDisplayNameForInstance } from './getDisplayNameFromReactInstance.js'
 import { getPathToSource } from './getPathToSource.js'
@@ -35,7 +35,7 @@ export const ContextMenu = React.forwardRef(
     props,
     ref
   ) => {
-    const { onClose, pathModifier } = props
+    const { onClose } = props
 
     const [target, setTarget] = React.useState(
       /** @type {HTMLElement | null} */
@@ -62,8 +62,6 @@ export const ContextMenu = React.forwardRef(
     const {
       x,
       y,
-      reference,
-      floating,
       strategy,
       refs,
       update,
@@ -77,13 +75,9 @@ export const ContextMenu = React.forwardRef(
 
         if (!open) onClose?.()
       },
-      middleware: [
-        offset({ mainAxis: 5, alignmentAxis: 4 }),
-        flip(),
-        shift(),
-        arrow({ element: arrowRef }),
-      ],
-      placement: 'right',
+      middleware: [offset({ mainAxis: 5, alignmentAxis: 4 }), flip(), shift(), arrow({ element: arrowRef })],
+      // use bottom placement because you typically will want one of the first items
+      placement: 'bottom',
     })
 
     const { getFloatingProps, getItemProps } = useInteractions([
@@ -103,10 +97,7 @@ export const ContextMenu = React.forwardRef(
       }
     }, [open, update, refs.reference, refs.floating])
 
-    const mergedReferenceRef = React.useMemo(
-      () => mergeRefs([ref, reference]),
-      [reference, ref]
-    )
+    const mergedReferenceRef = React.useMemo(() => mergeRefs([ref, refs.reference]), [ref, refs.reference])
 
     React.useEffect(() => {
       function onContextMenu(
@@ -174,9 +165,7 @@ export const ContextMenu = React.forwardRef(
       return null
     }
 
-    const instances = getReactInstancesForElement(target).filter((instance) =>
-      getSourceForInstance(instance)
-    )
+    const instances = getReactInstancesForElement(target).filter((instance) => getSourceForInstance(instance))
 
     return html`
       <style key="click-to-component-contextmenu-style">
@@ -203,14 +192,11 @@ export const ContextMenu = React.forwardRef(
 
           --shadow-color: 0deg 0% 0%;
           --shadow-elevation-low: 0px -1px 0.8px hsl(var(--shadow-color) / 0.1),
-            0px -1.2px 0.9px -2.5px hsl(var(--shadow-color) / 0.07),
-            0px -3px 2.3px -5px hsl(var(--shadow-color) / 0.03);
+            0px -1.2px 0.9px -2.5px hsl(var(--shadow-color) / 0.07), 0px -3px 2.3px -5px hsl(var(--shadow-color) / 0.03);
 
-          --shadow-elevation-medium: 0px 1px 0.8px
-              hsl(var(--shadow-color) / 0.11),
+          --shadow-elevation-medium: 0px 1px 0.8px hsl(var(--shadow-color) / 0.11),
             0px 1.5px 1.1px -1.7px hsl(var(--shadow-color) / 0.08),
-            0px 5.1px 3.8px -3.3px hsl(var(--shadow-color) / 0.05),
-            0px 15px 11.3px -5px hsl(var(--shadow-color) / 0.03);
+            0px 5.1px 3.8px -3.3px hsl(var(--shadow-color) / 0.05), 0px 15px 11.3px -5px hsl(var(--shadow-color) / 0.03);
           --shadow-elevation-high: 0px 1px 0.8px hsl(var(--shadow-color) / 0.1),
             0px 1.1px 0.8px -0.7px hsl(var(--shadow-color) / 0.09),
             0px 2.1px 1.6px -1.4px hsl(var(--shadow-color) / 0.07),
@@ -235,6 +221,7 @@ export const ContextMenu = React.forwardRef(
           font-size: 13px;
         }
 
+        [data-click-to-component-contextmenu] button:hover,
         [data-click-to-component-contextmenu] button:focus,
         [data-click-to-component-contextmenu] button:not([disabled]):active {
           cursor: pointer;
@@ -243,10 +230,9 @@ export const ContextMenu = React.forwardRef(
           box-shadow: var(--shadow-elevation-medium);
         }
 
+        [data-click-to-component-contextmenu] button:hover code,
         [data-click-to-component-contextmenu] button:focus code,
-        [data-click-to-component-contextmenu]
-          button:not([disabled]):active
-          code {
+        [data-click-to-component-contextmenu] button:not([disabled]):active code {
           color: white;
         }
 
@@ -256,8 +242,8 @@ export const ContextMenu = React.forwardRef(
 
         [data-click-to-component-contextmenu] button code {
           color: royalblue;
-          font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
-            'Liberation Mono', 'Courier New', monospace;
+          font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New',
+            monospace;
         }
 
         [data-click-to-component-contextmenu] button code var {
@@ -267,10 +253,8 @@ export const ContextMenu = React.forwardRef(
           padding: 3px 6px;
           font-style: normal;
           font-weight: normal;
-          font-family: ui-sans-serif, system-ui, -apple-system,
-            BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial,
-            'Noto Sans', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
-            'Segoe UI Symbol', 'Noto Color Emoji';
+          font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue',
+            Arial, 'Noto Sans', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
         }
 
         [data-click-to-component-contextmenu] button cite {
@@ -278,18 +262,16 @@ export const ContextMenu = React.forwardRef(
           font-style: normal;
           font-size: 11px;
           opacity: 0.5;
-          font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
-            'Liberation Mono', 'Courier New', monospace;
+          font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New',
+            monospace;
         }
 
         [data-click-to-component-contextmenu] button cite data::after {
           content: attr(value);
           float: right;
           padding-left: 15px;
-          font-family: ui-sans-serif, system-ui, -apple-system,
-            BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial,
-            'Noto Sans', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
-            'Segoe UI Symbol', 'Noto Color Emoji';
+          font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue',
+            Arial, 'Noto Sans', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
         }
 
         [data-click-to-component-contextmenu-arrow] {
@@ -308,7 +290,7 @@ export const ContextMenu = React.forwardRef(
           <${FloatingFocusManager} context=${context}>
             <dialog
               ...${getFloatingProps({
-                ref: floating,
+                ref: refs.floating,
                 style: {
                   position: strategy,
                   top: y ?? '',
@@ -327,7 +309,7 @@ export const ContextMenu = React.forwardRef(
                 ${instances.map((instance, i) => {
                   const name = getDisplayNameForInstance(instance)
                   const source = getSourceForInstance(instance)
-                  const {line , column , path} = getPathToSource(source, pathModifier)
+                  const { line, column, path } = getPathToSource(source)
                   const props = getPropsForInstance(instance)
 
                   return html`
@@ -344,7 +326,7 @@ export const ContextMenu = React.forwardRef(
                       key=${i}
                       name="path"
                       type="submit"
-                      value=${path}:${line}:${column}
+                      value="${path}:${line}:${column}"
                     >
                       <code>
                         ${'<'}${name}
@@ -357,9 +339,7 @@ export const ContextMenu = React.forwardRef(
                         ${'>'}
                       </code>
                       <cite>
-                        <data
-                          value="${source.lineNumber}:${source.columnNumber}"
-                        >
+                        <data value="${source.lineNumber}:${source.columnNumber}">
                           ${source.fileName.replace(/.*(src|pages)/, '$1')}
                         </data>
                       </cite>
